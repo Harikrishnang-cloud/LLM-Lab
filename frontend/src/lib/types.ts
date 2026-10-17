@@ -1,0 +1,74 @@
+export interface ApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+}
+
+export interface BackendHealth {
+  status: 'ok';
+  service: string;
+  timestamp: string;
+}
+
+export interface OllamaHealth {
+  status: 'available' | 'unavailable' | 'timeout';
+  baseUrl: string;
+  timestamp: string;
+  message?: string;
+}
+
+export interface OllamaModelInfo {
+  name: string;
+  model: string;
+  size: number;
+  digest: string;
+  details?: {
+    parent_model?: string;
+    format?: string;
+    family?: string;
+    families?: string[];
+    parameter_size?: string;
+    quantization_level?: string;
+  };
+  modified_at: string;
+}
+
+export interface OllamaModelsResponse {
+  models: OllamaModelInfo[];
+  count: number;
+}
+
+export interface AppStatus {
+  backend: {
+    status: 'ok';
+    service: string;
+    uptimeSeconds: number;
+  };
+  ollama: {
+    status: 'available' | 'unavailable' | 'timeout';
+    baseUrl: string;
+    message?: string;
+  };
+  models: {
+    installed: string[];
+    count: number;
+    defaultModel: string | null;
+  };
+  timestamp: string;
+}
+
+export interface GeneratePromptRequest {
+  prompt: string;
+  model?: string;
+}
+
+export interface GeneratePromptResponse {
+  model: string;
+  response: string;
+  durationMs: number;
+  totalTokens?: number;
+}
