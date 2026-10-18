@@ -98,14 +98,12 @@ export default function PromptPlayground({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-100 gap-3">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-brand-50 border border-brand-200 text-brand-600">
-            <Sparkles size={20} />
-          </div>
+          
           <div>
             <h2 className="text-base font-bold text-slate-900">
               Try Your First Prompt
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-sm text-slate-500">
               Basic local inference testing playground with configurable parameters
             </p>
           </div>

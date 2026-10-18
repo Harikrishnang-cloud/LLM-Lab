@@ -41,7 +41,6 @@ export default function DashboardPage() {
             Understand LLMs by experimenting.
           </p>
         </div>
-
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <div className="text-xs font-mono px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 shadow-xs flex items-center gap-2">
             <Terminal size={14} className="text-brand-600" />
@@ -50,6 +49,14 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      <section aria-label="First Prompt Playground">
+        <PromptPlayground
+          isOllamaAvailable={isOllamaAvailable}
+          models={models}
+          defaultModel={defaultModel}
+          onRefreshModels={refresh}
+        />
+      </section>
       {/* Real-time Status Cards */}
       <section aria-label="System Status Overview">
         <StatusCards
@@ -65,16 +72,6 @@ export default function DashboardPage() {
           status={status}
           onTestConnection={handleTestConnection}
           testing={testing || loading}
-        />
-      </section>
-
-      {/* First Prompt Inference Testing Playground */}
-      <section aria-label="First Prompt Playground">
-        <PromptPlayground
-          isOllamaAvailable={isOllamaAvailable}
-          models={models}
-          defaultModel={defaultModel}
-          onRefreshModels={refresh}
         />
       </section>
     </div>
