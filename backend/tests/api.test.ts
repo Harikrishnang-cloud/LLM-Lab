@@ -146,4 +146,104 @@ describe('LLM Lab API Backend Tests', () => {
       ollamaService.generateText = originalGenerate;
     }
   });
+
+  // Phase 2: Tokenizer Lab Tests
+  describe('Phase 2 - Tokenizer Lab Endpoints', () => {
+    it('POST /api/tokenizer/encode successfully tokenizes text with Llama 3 tokenizer', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {
+        text: 'Hello world',
+        model: 'llama3.2:1b',
+      });
+
+      assert.equal(res.status, 200);
+      assert.equal(res.body.success, true);
+      assert.equal(res.body.data.model, 'llama3.2:1b');
+      assert.equal(res.body.data.tokenizerName, 'Llama 3 BPE Tokenizer (tiktoken 128k vocabulary)');
+      assert.equal(res.body.data.vocabularySize, 128256);
+      assert.equal(res.body.data.tokenCount, 2);
+      assert.equal(res.body.data.characterCount, 11);
+      assert.equal(res.body.data.wordCount, 2);
+      assert.deepEqual(res.body.data.tokenIds, [9906, 1917]);
+      assert.equal(res.body.data.tokens.length, 2);
+      assert.equal(res.body.data.tokens[0].id, 9906);
+      assert.equal(res.body.data.tokens[0].text, 'Hello');
+      assert.equal(res.body.data.tokens[1].id, 1917);
+      assert.equal(res.body.data.tokens[1].text, ' world');
+    });
+
+    it('POST /api/tokenizer/encode supports includeSpecialTokens (BOS/EOS)', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {
+        text: 'Hello world',
+        model: 'llama3.2:1b',
+        includeSpecialTokens: true,
+      });
+
+      assert.equal(res.status, 200);
+      assert.equal(res.body.success, true);
+      assert.equal(res.body.data.specialTokensIncluded, true);
+      // Llama 3 BOS = 128000, EOS = 128001
+      assert.equal(res.body.data.tokenIds[0], 128000);
+      assert.equal(res.body.data.tokenIds[res.body.data.tokenIds.length - 1], 128001);
+      assert.equal(res.body.data.tokenCount, 4);
+    });
+
+    it('POST /api/tokenizer/encode rejects empty input text', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {
+        text: '',
+      });
+
+      assert.equal(res.status, 400);
+      assert.equal(res.body.success, false);
+      assert.equal(res.body.error.code, 'VALIDATION_ERROR');
+    });
+
+    it('POST /api/tokenizer/encode rejects whitespace-only input text', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {
+        text: '   \n\t  ',
+      });
+
+      assert.equal(res.status, 400);
+      assert.equal(res.body.success, false);
+      assert.equal(res.body.error.code, 'VALIDATION_ERROR');
+    });
+
+    it('POST /api/tokenizer/encode rejects non-string text types', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {
+        text: 12345,
+      });
+
+      assert.equal(res.status, 400);
+      assert.equal(res.body.success, false);
+      assert.equal(res.body.error.code, 'VALIDATION_ERROR');
+    });
+
+    it('POST /api/tokenizer/encode rejects missing text property', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {});
+
+      assert.equal(res.status, 400);
+      assert.equal(res.body.success, false);
+      assert.equal(res.body.error.code, 'VALIDATION_ERROR');
+    });
+
+    it('POST /api/tokenizer/encode rejects unsupported model tokenizer rather than guessing', async () => {
+      const res = await request('POST', '/api/tokenizer/encode', {
+        text: 'Test string',
+        model: 'some-unknown-future-model:7b',
+      });
+
+      assert.equal(res.status, 400);
+      assert.equal(res.body.success, false);
+      assert.equal(res.body.error.code, 'UNSUPPORTED_TOKENIZER_MODEL');
+    });
+
+    it('GET /api/tokenizer/supported returns list of verified model tokenizers', async () => {
+      const res = await request('GET', '/api/tokenizer/supported');
+
+      assert.equal(res.status, 200);
+      assert.equal(res.body.success, true);
+      assert.ok(Array.isArray(res.body.data));
+      assert.ok(res.body.data.length > 0);
+      assert.equal(res.body.data[0].model, 'llama3.2:1b');
+    });
+  });
 });

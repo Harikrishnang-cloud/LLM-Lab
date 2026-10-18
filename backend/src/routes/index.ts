@@ -5,6 +5,10 @@ import {
   getOllamaModels,
   generatePromptResponse,
 } from '../controllers/ollama.controller.js';
+import {
+  encodeText,
+  getSupportedTokenizers,
+} from '../controllers/tokenizer.controller.js';
 
 const router = Router();
 
@@ -25,5 +29,9 @@ router.get('/ollama/models', getOllamaModels);
 
 // E. Ollama Generate
 router.post('/ollama/generate', generatePromptResponse);
+
+// G. Tokenizer endpoints (Phase 2)
+router.post('/tokenizer/encode', encodeText);
+router.get('/tokenizer/supported', getSupportedTokenizers);
 
 export default router;

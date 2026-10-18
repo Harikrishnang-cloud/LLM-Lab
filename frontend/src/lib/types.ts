@@ -72,3 +72,35 @@ export interface GeneratePromptResponse {
   durationMs: number;
   totalTokens?: number;
 }
+
+export interface TokenChunk {
+  id: number;
+  text: string;
+  index: number;
+}
+
+export interface TokenizeRequest {
+  text: string;
+  model?: string;
+  includeSpecialTokens?: boolean;
+}
+
+export interface TokenizeResponse {
+  model: string;
+  tokenizerName: string;
+  vocabularySize: number;
+  tokenCount: number;
+  characterCount: number;
+  wordCount: number;
+  tokens: TokenChunk[];
+  tokenIds: number[];
+  specialTokensIncluded: boolean;
+  notes?: string;
+}
+
+export interface SupportedTokenizer {
+  model: string;
+  tokenizerName: string;
+  vocabularySize: number;
+  description: string;
+}

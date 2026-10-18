@@ -6,6 +6,9 @@ import {
   AppStatus,
   GeneratePromptRequest,
   GeneratePromptResponse,
+  TokenizeRequest,
+  TokenizeResponse,
+  SupportedTokenizer,
 } from './types';
 
 const API_BASE_URL =
@@ -91,6 +94,21 @@ class ApiClient {
       body: JSON.stringify(payload),
       signal,
     });
+  }
+
+  public async tokenizeText(
+    payload: TokenizeRequest,
+    signal?: AbortSignal
+  ): Promise<TokenizeResponse> {
+    return this.request<TokenizeResponse>('/tokenizer/encode', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      signal,
+    });
+  }
+
+  public async getSupportedTokenizers(): Promise<SupportedTokenizer[]> {
+    return this.request<SupportedTokenizer[]>('/tokenizer/supported');
   }
 }
 

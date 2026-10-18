@@ -182,6 +182,8 @@ Ollama runs local models on your GPU or CPU without sharing prompts with third p
 | `GET` | `/api/ollama/health` | Pings local Ollama service | `curl http://localhost:5000/api/ollama/health` |
 | `GET` | `/api/ollama/models` | Returns installed local models | `curl http://localhost:5000/api/ollama/models` |
 | `POST` | `/api/ollama/generate` | Generates prompt completion | *See below* |
+| `POST` | `/api/tokenizer/encode` | Tokenizes text using verified model BPE tokenizer | *See below* |
+| `GET` | `/api/tokenizer/supported` | Returns list of verified model tokenizers | `curl http://localhost:5000/api/tokenizer/supported` |
 
 ### Example Inference Request
 ```bash
@@ -199,6 +201,36 @@ curl -X POST http://localhost:5000/api/ollama/generate \
     "response": "Self-attention allows tokens to look at each other...",
     "durationMs": 1140,
     "totalTokens": 64
+  }
+}
+```
+
+### Example Tokenization Request (Phase 2 — Tokenizer Lab)
+```bash
+curl -X POST http://localhost:5000/api/tokenizer/encode \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello world!", "model": "llama3.2:1b"}'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "model": "llama3.2:1b",
+    "tokenizerName": "Llama 3 BPE Tokenizer (tiktoken 128k vocabulary)",
+    "vocabularySize": 128256,
+    "tokenCount": 3,
+    "characterCount": 12,
+    "wordCount": 2,
+    "tokens": [
+      { "id": 9906, "text": "Hello", "index": 0 },
+      { "id": 1917, "text": " world", "index": 1 },
+      { "id": 0, "text": "!", "index": 2 }
+    ],
+    "tokenIds": [9906, 1917, 0],
+    "specialTokensIncluded": false,
+    "notes": "Exact BPE tokenization matching Meta LLaMA 3 / 3.1 / 3.2."
   }
 }
 ```

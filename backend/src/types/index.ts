@@ -67,3 +67,22 @@ export interface GenerateResultData {
   durationMs: number;
   totalTokens?: number;
 }
+
+export interface TokenChunk {
+  id: number;
+  text: string;
+  index: number;
+}
+
+export interface TokenizeResultData {
+  model: string;
+  tokenizerName: string;
+  vocabularySize: number;
+  tokenCount: number;
+  characterCount: number;
+  wordCount: number;
+  tokens: TokenChunk[];
+  tokenIds: number[];
+  specialTokensIncluded: boolean;
+  notes?: string;
+}

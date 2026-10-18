@@ -30,12 +30,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'API Status', href: '/api-status', icon: Activity },
-  {
-    name: 'Tokenizer Lab',
-    href: '#tokenizer',
-    icon: TerminalSquare,
-    disabled: true,
-    badge: 'Coming Soon',
+  { name: 'Tokenizer Lab',href: '/tokenizer',icon: TerminalSquare,badge: 'Phase 2',
   },
   {
     name: 'Prompt Playground',
