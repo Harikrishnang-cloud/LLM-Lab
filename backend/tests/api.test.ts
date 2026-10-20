@@ -147,6 +147,45 @@ describe('LLM Lab API Backend Tests', () => {
     }
   });
 
+  it('POST /api/ollama/generate accepts hyperparameters and passes them to service', async () => {
+    const originalGenerate = ollamaService.generateText;
+    let passedHyperparams: any = null;
+    ollamaService.generateText = async (prompt, model, signal, hyperparams) => {
+      passedHyperparams = hyperparams;
+      return {
+        model: model || 'llama3:latest',
+        response: 'Mocked hyperparameter response',
+        durationMs: 200,
+        totalTokens: 15,
+        promptTokens: 8,
+        tokensPerSecond: 75.0,
+      };
+    };
+
+    try {
+      const res = await request('POST', '/api/ollama/generate', {
+        prompt: 'Generate creative story',
+        model: 'llama3:latest',
+        system: 'You are a poetic assistant.',
+        temperature: 1.2,
+        topP: 0.9,
+        maxTokens: 500,
+        seed: 42,
+      });
+      assert.equal(res.status, 200);
+      assert.equal(res.body.success, true);
+      assert.equal(passedHyperparams.system, 'You are a poetic assistant.');
+      assert.equal(passedHyperparams.temperature, 1.2);
+      assert.equal(passedHyperparams.topP, 0.9);
+      assert.equal(passedHyperparams.maxTokens, 500);
+      assert.equal(passedHyperparams.seed, 42);
+      assert.equal(res.body.data.promptTokens, 8);
+      assert.equal(res.body.data.tokensPerSecond, 75.0);
+    } finally {
+      ollamaService.generateText = originalGenerate;
+    }
+  });
+
   // Phase 2: Tokenizer Lab Tests
   describe('Phase 2 - Tokenizer Lab Endpoints', () => {
     it('POST /api/tokenizer/encode successfully tokenizes text with Llama 3 tokenizer', async () => {

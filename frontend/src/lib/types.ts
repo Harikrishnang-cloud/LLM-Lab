@@ -64,6 +64,11 @@ export interface AppStatus {
 export interface GeneratePromptRequest {
   prompt: string;
   model?: string;
+  system?: string;
+  temperature?: number;
+  topP?: number;
+  maxTokens?: number;
+  seed?: number;
 }
 
 export interface GeneratePromptResponse {
@@ -71,6 +76,8 @@ export interface GeneratePromptResponse {
   response: string;
   durationMs: number;
   totalTokens?: number;
+  promptTokens?: number;
+  tokensPerSecond?: number;
 }
 
 export interface TokenChunk {

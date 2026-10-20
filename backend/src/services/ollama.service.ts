@@ -138,7 +138,14 @@ export class OllamaService {
   public async generateText(
     prompt: string,
     modelOverride?: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    hyperparams?: {
+      system?: string;
+      temperature?: number;
+      topP?: number;
+      maxTokens?: number;
+      seed?: number;
+    }
   ): Promise<GenerateResultData> {
     // 1. Fetch available models first to validate
     const models = await this.listModels();
@@ -187,6 +194,23 @@ export class OllamaService {
 
     const startTime = Date.now();
 
+    // Build Ollama options
+    const options: Record<string, unknown> = {};
+    if (hyperparams?.temperature !== undefined) {
+      options.temperature = hyperparams.temperature;
+    } else {
+      options.temperature = 0.7;
+    }
+    if (hyperparams?.topP !== undefined) {
+      options.top_p = hyperparams.topP;
+    }
+    if (hyperparams?.maxTokens !== undefined) {
+      options.num_predict = hyperparams.maxTokens;
+    }
+    if (hyperparams?.seed !== undefined) {
+      options.seed = hyperparams.seed;
+    }
+
     try {
       const response = await fetch(`${this.baseUrl}/api/generate`, {
         method: 'POST',
@@ -196,10 +220,9 @@ export class OllamaService {
         body: JSON.stringify({
           model: targetModel,
           prompt,
+          system: hyperparams?.system || undefined,
           stream: false,
-          options: {
-            temperature: 0.7,
-          },
+          options,
         }),
         signal: controller.signal,
       });
@@ -222,11 +245,17 @@ export class OllamaService {
 
       const data = (await response.json()) as OllamaGenerateResponse;
 
+      const evalCount = data.eval_count || 0;
+      const durationSec = durationMs / 1000;
+      const tokensPerSecond = evalCount > 0 && durationSec > 0 ? Number((evalCount / durationSec).toFixed(1)) : undefined;
+
       return {
         model: data.model || targetModel,
         response: data.response || '',
         durationMs,
         totalTokens: data.eval_count,
+        promptTokens: data.prompt_eval_count,
+        tokensPerSecond,
       };
     } catch (err: unknown) {
       clearTimeout(timeout);

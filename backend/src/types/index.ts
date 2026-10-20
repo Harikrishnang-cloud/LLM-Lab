@@ -66,6 +66,8 @@ export interface GenerateResultData {
   response: string;
   durationMs: number;
   totalTokens?: number;
+  promptTokens?: number;
+  tokensPerSecond?: number;
 }
 
 export interface TokenChunk {

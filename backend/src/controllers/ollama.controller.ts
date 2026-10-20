@@ -57,7 +57,8 @@ export const generatePromptResponse = async (
       );
     }
 
-    const { prompt, model } = validationResult.data;
+    const { prompt, model, system, temperature, topP, maxTokens, seed } =
+      validationResult.data;
 
     // Handle client disconnect cancellation
     const controller = new AbortController();
@@ -67,8 +68,13 @@ export const generatePromptResponse = async (
       }
     });
 
-    // 2. Call Ollama Service
-    const result = await ollamaService.generateText(prompt, model, controller.signal);
+    // 2. Call Ollama Service with hyperparameters
+    const result = await ollamaService.generateText(
+      prompt,
+      model,
+      controller.signal,
+      { system, temperature, topP, maxTokens, seed }
+    );
 
     const response: ApiResponse<GenerateResultData> = {
       success: true,

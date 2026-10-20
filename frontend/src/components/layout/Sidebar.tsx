@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard,Activity,Cpu,TerminalSquare,Network,Database,Sliders,ChevronLeft,ChevronRight,Menu,X,Sparkles} from 'lucide-react';
+import { LayoutDashboard,Activity,Cpu,TerminalSquare,Network,Database,Sliders,ChevronLeft,ChevronRight,Menu,X,Sparkles, PencilIcon} from 'lucide-react';
 import { useAppStatus } from '@/hooks/useAppStatus';
 
 interface NavItem {
@@ -17,15 +17,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'API Status', href: '/api-status', icon: Activity },
-  { name: 'Tokenizer Lab',href: '/tokenizer',icon: TerminalSquare,badge: 'Phase 2',
-  },
-  {
-    name: 'Prompt Playground',
-    href: '#prompt-lab',
-    icon: Sparkles,
-    disabled: true,
-    badge: 'Coming Soon',
-  },
+  { name: 'Tokenizer Lab',href: '/tokenizer',icon: TerminalSquare,badge: 'Phase 2',},
+  {name: 'Prompt Playground',href: '/playground',icon: PencilIcon,badge: 'Phase 3',},
   {
     name: 'Embedding Explorer',
     href: '#embeddings',

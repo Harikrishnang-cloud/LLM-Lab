@@ -173,7 +173,7 @@ export default function TokenizerPlayground() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-50 border border-purple-200 text-purple-700 text-xs font-semibold mb-2">
            
-            <span>Phase 2 - Tokenizer Lab</span>
+            <span>2. Tokenizer Lab</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
             Byte-Pair Encoding Tokenizer

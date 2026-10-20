@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useAppStatus } from '@/hooks/useAppStatus';
 import StatusCards from '@/components/dashboard/StatusCards';
 import SetupChecklist from '@/components/dashboard/SetupChecklist';
-import PromptPlayground from '@/components/dashboard/PromptPlayground';
+import QuickPromptCard from '@/components/dashboard/QuickPromptCard';
 import { Sparkles, Terminal } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -32,7 +32,7 @@ export default function DashboardPage() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold mb-3">
             
-            <span>Interactive AI Engineering Lab</span>
+            <span>1. Interactive AI Engineering Lab</span>
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
             Welcome to LLM Lab
@@ -50,7 +50,7 @@ export default function DashboardPage() {
       </div>
 
       <section aria-label="First Prompt Playground">
-        <PromptPlayground
+        <QuickPromptCard
           isOllamaAvailable={isOllamaAvailable}
           models={models}
           defaultModel={defaultModel}

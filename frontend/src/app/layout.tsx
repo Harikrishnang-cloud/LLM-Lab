@@ -4,7 +4,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 
 export const metadata: Metadata = {
-  title: 'LLM Lab — Experiment and Understand LLMs',
+  title: 'LLM Lab - Experiment and Understand LLMs',
   description:
     'Educational platform for learning, testing, and experimenting with Large Language Models locally.',
 };
