@@ -49,7 +49,7 @@ export default function SetupChecklist({
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             Setup & Readiness Checklist
             {allCompleted && (
-              <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">
+              <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-md font-semibold">
                 All Systems Operational
               </span>
             )}
@@ -62,11 +62,11 @@ export default function SetupChecklist({
         <button
           onClick={onTestConnection}
           disabled={testing}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition disabled:opacity-50 shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition disabled:opacity-50 shadow-sm"
         >
           {testing ? (
             <>
-              <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-lg animate-spin" />
               Testing Connection...
             </>
           ) : (

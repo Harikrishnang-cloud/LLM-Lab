@@ -32,11 +32,6 @@ export default function Header() {
             <span className="text-rose-700 font-semibold">Offline</span>
           )}
         </div>
-
-        <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1.5 rounded-lg">
-          <ShieldCheck size={14} className="text-brand-600" />
-          <span>Isolated Local Host</span>
-        </div>
       </div>
     </header>
   );

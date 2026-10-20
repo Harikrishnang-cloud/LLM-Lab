@@ -35,7 +35,7 @@ export default function ApiStatusPage() {
             <span>Health & Diagnostics</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-            API & Engine Telemetry
+            API & Engine
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Real-time connectivity, latency monitoring, and model inventory
@@ -57,14 +57,14 @@ export default function ApiStatusPage() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 hover:text-slate-900 transition disabled:opacity-50 shadow-xs"
           >
             <RefreshCw size={14} className={loading ? 'animate-spin text-brand-600' : ''} />
-            <span>Refresh Telemetry</span>
+            <span>Refresh</span>
           </button>
         </div>
       </div>
 
       {/* Aggregate Health Banner */}
       <div
-        className={`p-5 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+        className={`p-5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
           backendHealthy && isOllamaUp
             ? 'bg-emerald-50/70 border-emerald-200 text-emerald-900'
             : backendHealthy
@@ -73,20 +73,6 @@ export default function ApiStatusPage() {
         }`}
       >
         <div className="flex items-center gap-3.5">
-          {backendHealthy && isOllamaUp ? (
-            <div className="p-2.5 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-700">
-              <CheckCircle2 size={24} />
-            </div>
-          ) : backendHealthy ? (
-            <div className="p-2.5 rounded-lg bg-amber-100 border border-amber-300 text-amber-700">
-              <AlertTriangle size={24} />
-            </div>
-          ) : (
-            <div className="p-2.5 rounded-lg bg-rose-100 border border-rose-300 text-rose-700">
-              <XCircle size={24} />
-            </div>
-          )}
-
           <div>
             <h3 className="font-bold text-sm sm:text-base text-slate-900">
               {backendHealthy && isOllamaUp

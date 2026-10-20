@@ -1,14 +1,7 @@
 import { Router } from 'express';
 import { getHealth, getReady, getAggregatedStatus } from '../controllers/health.controller.js';
-import {
-  getOllamaHealth,
-  getOllamaModels,
-  generatePromptResponse,
-} from '../controllers/ollama.controller.js';
-import {
-  encodeText,
-  getSupportedTokenizers,
-} from '../controllers/tokenizer.controller.js';
+import {getOllamaHealth,getOllamaModels,generatePromptResponse,} from '../controllers/ollama.controller.js';
+import {encodeText,getSupportedTokenizers,} from '../controllers/tokenizer.controller.js';
 
 const router = Router();
 

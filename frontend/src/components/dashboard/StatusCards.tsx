@@ -151,7 +151,7 @@ export default function StatusCards({ status, loading, onRefresh }: StatusCardsP
               href="/api-status"
               className="text-brand-600 hover:text-brand-700 font-semibold underline"
             >
-              Inspect telemetry →
+              Inspect →
             </Link>
           </div>
         </div>

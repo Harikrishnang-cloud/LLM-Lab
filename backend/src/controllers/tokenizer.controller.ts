@@ -4,19 +4,13 @@ import { tokenizeRequestSchema } from '../schemas/tokenizer.schema.js';
 import { AppError } from '../middleware/error.middleware.js';
 import { ApiResponse, TokenizeResultData } from '../types/index.js';
 
-export const encodeText = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+export const encodeText = async (req: Request,res: Response,next: NextFunction): Promise<void> => {
   try {
     // 1. Zod Validation
     const validationResult = tokenizeRequestSchema.safeParse(req.body);
     if (!validationResult.success) {
       const firstIssue = validationResult.error.issues[0];
-      throw new AppError(
-        400,
-        'VALIDATION_ERROR',
+      throw new AppError(400,'VALIDATION_ERROR',
         firstIssue ? firstIssue.message : 'Invalid request payload',
         validationResult.error.flatten()
       );

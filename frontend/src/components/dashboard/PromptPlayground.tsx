@@ -111,7 +111,7 @@ export default function PromptPlayground({
 
         {/* Model Selector Bar */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs">
+          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs">
             <Cpu size={14} className="text-slate-500 shrink-0" />
             <select
               value={selectedModel}
@@ -206,7 +206,7 @@ export default function PromptPlayground({
               <button
                 onClick={handleSendPrompt}
                 disabled={!prompt.trim() || !isOllamaAvailable || models.length === 0}
-                className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 <Send size={13} />
                 Send Prompt

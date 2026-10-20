@@ -1,24 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  TerminalSquare,
-  Play,
-  RotateCcw,
-  Sparkles,
-  Info,
-  AlertCircle,
-  Hash,
-  FileText,
-  Layers,
-  Copy,
-  Check,
-  Cpu,
-  BookOpen,
-  ArrowRight,
-  Split,
-  Eye,
-  SlidersHorizontal,
+import {TerminalSquare,Play,RotateCcw,Sparkles,Info,AlertCircle,Hash,FileText,Layers,Copy,Check,Cpu,BookOpen,ArrowRight,Split,Eye,SlidersHorizontal,
 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { TokenChunk, TokenizeResponse } from '@/lib/types';
@@ -42,7 +25,7 @@ const SAMPLE_INPUTS = [
   },
   {
     label: 'Subword & Multi-language',
-    text: 'Tokenization 🤖 宇宙 (Cosmos) uncharacteristically extraordinariness',
+    text: 'Tokenization 宇宙 (Cosmos) uncharacteristically extraordinariness',
     category: 'Subwords & Unicode',
   },
   {
@@ -189,8 +172,8 @@ export default function TokenizerPlayground() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-50 border border-purple-200 text-purple-700 text-xs font-semibold mb-2">
-            <TerminalSquare size={13} className="text-purple-600" />
-            <span>Phase 2 — Tokenizer Lab</span>
+           
+            <span>Phase 2 - Tokenizer Lab</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
             Byte-Pair Encoding Tokenizer
@@ -201,8 +184,8 @@ export default function TokenizerPlayground() {
         </div>
 
         {/* Active Verified Tokenizer Badge */}
-        <div className="flex items-center gap-2.5 bg-white border border-slate-200 rounded-xl px-3.5 py-2 shadow-xs">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex items-center gap-2.5 bg-white border border-slate-200 rounded-lg px-3.5 py-2 shadow-xs">
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
           <div className="text-left">
             <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
               Exact Tokenizer
@@ -218,8 +201,8 @@ export default function TokenizerPlayground() {
       </div>
 
       {/* Educational Notice Banner */}
-      <div className="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 sm:p-5 flex items-start gap-3.5 shadow-xs">
-        <Info size={19} className="text-amber-700 shrink-0 mt-0.5" />
+      <div className="bg-amber-50/70 border border-amber-200 rounded-xl p-4 sm:p-5 flex items-start gap-3.5 shadow-xs">
+      
         <div className="text-xs sm:text-sm text-amber-900 space-y-1">
           <div className="font-semibold text-amber-950 flex items-center gap-2">
             <span>Model-Accurate Vocabulary Mapping</span>
@@ -309,7 +292,7 @@ export default function TokenizerPlayground() {
             <button
               onClick={() => handleTokenize(inputText, includeSpecialTokens)}
               disabled={loading || !inputText.trim()}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white shadow-xs transition disabled:opacity-50 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white shadow-xs transition disabled:opacity-50 cursor-pointer"
             >
               <Play size={14} className={loading ? 'animate-spin' : 'fill-white'} />
               <span>{loading ? 'Tokenizing...' : 'Tokenize Text'}</span>
@@ -388,9 +371,9 @@ export default function TokenizerPlayground() {
             {/* View Mode Header */}
             <div className="flex flex-wrap items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/60 gap-3">
               <div className="flex items-center gap-2">
-                <Eye size={15} className="text-purple-600" />
-                <span className="text-xs font-bold text-slate-800">Token Visualizer</span>
-                <span className="text-[11px] text-slate-400">
+                
+                <span className="text-sm font-bold text-slate-800">Token Visualizer</span>
+                <span className="text-[12px] text-slate-400">
                   Hover over any chip to inspect its exact token ID and text representation
                 </span>
               </div>
@@ -462,7 +445,7 @@ export default function TokenizerPlayground() {
                   <span>•</span>
                   <span>
                     Raw Representation:{' '}
-                    <code className="bg-white px-2 py-0.5 rounded border border-purple-200 font-bold">
+                    <code className="bg-white px-2 py-0.5 rounded-lg border border-purple-200 font-bold">
                       {JSON.stringify(activeToken.text)}
                     </code>
                   </span>
@@ -496,7 +479,7 @@ export default function TokenizerPlayground() {
                         key={index}
                         onMouseEnter={() => setHoveredTokenIndex(index)}
                         onMouseLeave={() => setHoveredTokenIndex(null)}
-                        className={`group relative inline-flex items-center border rounded-xl px-2.5 py-1.5 transition-all cursor-pointer font-mono text-xs sm:text-sm select-none ${
+                        className={`group relative inline-flex items-center border rounded-lg px-2.5 py-1.5 transition-all cursor-pointer font-mono text-xs sm:text-sm select-none ${
                           palette.bg
                         } ${palette.border} ${palette.text} ${
                           isHovered ? 'ring-2 ring-purple-400 scale-105 z-10 shadow-sm' : ''
