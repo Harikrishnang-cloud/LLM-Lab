@@ -1,4 +1,4 @@
-# LLM Lab — Phase 1: Complete Frontend and Backend Foundation
+# LLM Lab - Phase 2: Complete Frontend and Backend Foundation
 
 > An educational platform for learning, testing, and experimenting with Large Language Models.
 
